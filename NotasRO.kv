@@ -1,0 +1,696 @@
+#:import Factory kivy.factory.Factory
+<telaManager>
+
+    Login:
+    Smateria:
+    Turmas:
+    Turmas2:
+
+    Bimestre:
+    Confirma:
+    Final:
+
+
+<BarraAzul>
+    canvas:
+        Color:
+            rgba: 	0,.65,0.89,0.6
+        Rectangle:
+            pos:  self.pos
+            size: self.size
+    pos_hint: {"top":0.80,"left":0}
+    size_hint: 1,0.02
+    cols: 1
+    rows: 1
+
+<Nada>
+    canvas:
+        Color:
+            rgba: 1,1,1,0
+        Rectangle:
+            pos:  self.pos
+            size: self.size
+<Nada1>
+    canvas:
+        Color:
+            rgba: 1,1,1,0
+        Rectangle:
+            pos:  self.pos
+            size: self.size
+    size_hint: 0.4,1
+
+
+
+<PainelSuperior>
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: .9,.9,.9,1
+            Rectangle:
+                pos:  self.pos
+                size: self.size
+        pos_hint: {"top":1,"left":0}
+        size_hint: 1,0.2
+        cols:2
+        rows:4
+        GridLayout:
+            size_hint: 0.78,1
+            cols:1
+            rows:2
+
+
+            Label:
+                size_hint: 1,1.5
+                font_name: "Fontes/Inter-Regular"
+                font_size: 24
+                text_size: self.size
+                halign: 'right'
+                valign: 'middle'
+                text: "Bem vindo ao NotasRO"
+                color: 0,0,0,1
+
+            Label:
+                text: "Uma ferramenta rápida e prática para lançar as notas de seus alunos"
+                font_name:"Fontes/Raleway-Regular"
+                font_size: 16
+                color: 0,0,0,1
+                text_size: self.size
+                halign: 'right'
+                valign: 'middle'
+
+
+
+        Image:
+            source: 'Images/notasRO-img.png'
+            size_hint: .35,1
+            allow_stretch: True
+            keep_ratio: True
+
+<Link_EsqueciSenha>:
+    font_name: "Fontes/Inter-Regular"
+    font_size: root.TamanhoFonte
+    color: root.corbotao
+    background_color: 0,0,0,0
+    text: "Esqueceu a senha?"
+
+<Link_CriarNovaConta>:
+    font_name: "Fontes/Inter-Regular"
+    font_size: root.TamanhoFonte
+    color: root.corbotao
+    background_color: 0,0,0,0
+    text: "Ainda não se registrou? Crie uma conta"
+
+<BotaoLogin>:
+    color: root.corfonte
+    background_color: 0,0,0,0
+    background_normal: ""
+    canvas.before:
+        Color:
+            rgba: root.corbotao
+        RoundedRectangle
+            size: self.size
+            pos: self.pos
+            radius: [30]
+
+
+    font_size: 18
+    on_release:
+        if app.PainelLogin.enviadados(): \
+        app.root.current = "Smateria"
+
+<BotaoMateria>:
+    color: root.corfonte
+    background_color: 0,0,0,0
+    background_normal: ""
+    canvas.before:
+        Color:
+            rgba: root.corbotao
+        RoundedRectangle
+            size: self.size
+            pos: self.pos
+            radius: [30]
+    size_hint: .3,0.08
+    text: "Selecionar Matéria"
+    font_size: 18
+    on_release:
+        if app.PainelSM.prox():\
+        app.root.current = "Turmas"
+
+<BotaoTurmas>:
+    color: root.corfonte
+    background_color: 0,0,0,0
+    background_normal: ""
+    canvas.before:
+        Color:
+            rgba: root.corbotao
+        RoundedRectangle
+            size: self.size
+            pos: self.pos
+            radius: [30]
+    size_hint: .3,0.08
+    text: "Selecionar Matéria"
+    font_size: 18
+<BotaoConfirmar>:
+    color: root.corfonte
+    background_color: 0,0,0,0
+    background_normal: ""
+    canvas.before:
+        Color:
+            rgba: root.corbotao
+        RoundedRectangle
+            size: self.size
+            pos: self.pos
+            radius: [30]
+    size_hint: .3,0.08
+    font_size: 18
+<Telaerro>:
+    size_hint:0.3,0.25
+    auto_dismiss: False
+    title: root.mensagem
+
+    Button:
+        size_hint: 0.2,0.2
+        text: "Fechar"
+        on_release: root.dismiss()
+
+<TxtInputEmail>:
+    background_color:0,0,0,0
+    hint_text: "Email"
+    hint_text_color:0.29,0.29,0.29,1
+    multiline:False
+
+<TxtInputSenha>:
+    background_color:0,0,0,0
+    hint_text: "Senha"
+    hint_text_color:0.29,0.29,0.29,1
+    multiline:False
+    password:True
+
+<OpcaoTurmas>
+    cols:2
+    spacing:10
+    CheckBox:
+
+        color: 0,0,0,1
+        on_active: root.checkbox_clicada(self,self.active)
+        size_hint: .2,1
+    Label:
+        canvas:
+            Color:
+                rgba: 0.29,0.29,0.29,1
+            Line:
+                width: 1.2
+                rectangle: self.x-22, self.y+8, self.width+5, 0
+
+        text_size: self.size
+        halign: 'left'
+        valign: 'middle'
+        text: root.Turma
+        color: 0,0,0,1
+
+<OpcaoMateria>
+    cols:2
+    CheckBox:
+        size: self.size
+        color: 0,0,0,1
+        on_active: root.checkbox_clicada(self,self.active)
+        group: "Materia"
+        size_hint: .2,1
+    Label:
+        canvas:
+            Color:
+                rgba: 0.29,0.29,0.29,1
+            Line:
+                width: 1.5
+                rectangle: self.x, self.y+3, self.width-40, 0
+
+        text_size: self.size
+        halign: 'left'
+        valign: 'middle'
+        text: root.nomemateria
+        color: 0,0,0,1
+
+####################
+<TabelaTurmas>:
+    orientation: 'lr-tb'
+    padding: 20
+    spacing:10
+    Nada:
+        size_hint: 0.33,.1
+    BotaoTurmas:
+        on_release:
+            app.root.current = "Turmas2"
+
+<TabelaTurmas2>
+    orientation: 'lr-tb'
+    padding: 20
+    spacing:10
+    Nada:
+        size_hint: 0.33,.1
+    BotaoTurmas:
+        on_release:
+            if app.PainelTurmas2.prox():\
+            app.root.current = "Bimestre"
+
+<TabelaConfirma>
+    cols: 1
+    padding: 20
+
+
+#####################
+
+<PainelLogin>:
+    id:p1
+    size_hint: 1.4,1
+    cols:1
+    elevation: 3.5
+    shadow_offset: 0, -6
+    shadow_softness: 10
+    canvas:
+        Color:
+            rgba: 0.65,0.81,0.98,1
+        Rectangle:
+            pos:  self.pos
+            size: self.size
+        Color:
+            rgba: 0.29,0.29,0.29,1
+        Line:
+            width: 1.5
+            rectangle: self.x-1.5, self.y+2, self.width, self.height-2
+    Label:
+        size_hint: 1,0.7
+        text: "Realize seu login:"
+        font_name:"Fontes/Inter-Regular"
+        font_size: 20
+        color: 0,0,0,1
+        text_size: self.size
+        halign: 'center'
+        valign: 'bottom'
+    Nada:
+        size_hint: 1,.2
+    StackLayout:
+        orientation: "lr-tb"
+        Nada:
+            size_hint: 1,0.15
+        Nada:
+            size_hint: 0.15,0.5
+        GridLayout:
+            size_hint: 0.7,0.33
+            cols:1
+            canvas:
+                Color:
+                    rgba: 0.29,0.29,0.29,1
+                Line:
+                    width: 1.3
+                    rectangle: self.x, self.y+3, self.width, 0
+            TxtInputEmail:
+    StackLayout:
+        orientation: "lr-tb"
+        Nada:
+            size_hint: 1,0.15
+        Nada:
+            size_hint: 0.15,0.5
+        GridLayout:
+            size_hint: 0.7,0.33
+            cols:1
+            canvas:
+                Color:
+                    rgba: 0.29,0.29,0.29,1
+                Line:
+                    width: 1.3
+                    rectangle: self.x, self.y+3, self.width, 0
+            TxtInputSenha:
+    GridLayout:
+        size_hint: 1,.4
+        cols: 3
+        rows: 1
+        Nada:
+            size_hint: .65,.2
+        Link_EsqueciSenha:
+        Nada:
+            size_hint: .65,.2
+    Nada:
+        size_hint: 1,.1
+    Link_CriarNovaConta:
+        size_hint: 1,.4
+    Nada:
+        size_hint: 1,.1
+    GridLayout:
+        size_hint: 1,.5
+        cols: 3
+        rows: 1
+        Nada:
+            size_hint: .9,1
+
+        BotaoLogin:
+            size_hint: 1,1
+            text: "Login"
+        Nada:
+            size_hint: .9,1
+    Nada:
+        size_hint: 1,.2
+
+<PainelSM>:
+    id:p2
+
+    size_hint: 1,1
+    elevation: 3
+    shadow_offset: 0, -6
+    shadow_softness: 10
+    canvas:
+        Color:
+            rgba: 0.65,0.81,0.98,1
+        Rectangle:
+            pos:  self.pos
+            size: self.size
+        Color:
+            rgba: 0.29,0.29,0.29,1
+        Line:
+            width: 1.5
+            rectangle: self.x-1.5, self.y+2, self.width, self.height-2
+    Label:
+        size_hint: 1,.15
+        text:"Selecione a matéria na qual você deseja lançar as notas"
+        font_size: 20
+        font_name: "Fontes/Inter-Regular"
+        color: 0,0,0,1
+
+    TabelaMateria:
+    Nada:
+        size_hint: 0.35,0.08
+    BotaoMateria:
+
+<PainelTurmas>:
+    id:p3
+    size_hint: 1,1
+    elevation: 3
+    shadow_offset: 0, -6
+    shadow_softness: 10
+    canvas:
+        Color:
+            rgba: 0.65,0.81,0.98,1
+        Rectangle:
+            pos:  self.pos
+            size: self.size
+        Color:
+            rgba: 0.29,0.29,0.29,1
+        Line:
+            width: 1.5
+            rectangle: self.x-1.5, self.y+2, self.width, self.height-2
+    Label:
+        size_hint: 1,.1
+        text:"Selecione as turmas que você deseja lançar as notas"
+        font_size: 20
+        font_name: "Fontes/Inter-Regular"
+        color: 0,0,0,1
+    TabelaTurmas:
+
+<PainelTurmas2>:
+    id:p4
+    size_hint: 1,1
+    elevation: 3
+    shadow_offset: 0, -6
+    shadow_softness: 10
+    canvas:
+        Color:
+            rgba: 0.65,0.81,0.98,1
+        Rectangle:
+            pos:  self.pos
+            size: self.size
+        Color:
+            rgba: 0.29,0.29,0.29,1
+        Line:
+            width: 1.5
+            rectangle: self.x-1.5, self.y+2, self.width, self.height-2
+    Label:
+        size_hint: 1,.1
+        text:"Selecione as turmas que você deseja lançar as notas?"
+        font_size: 20
+        font_name: "Fontes/Inter-Regular"
+        color: 0,0,0,1
+    TabelaTurmas2:
+
+<PainelBimestre>:
+    id:p5
+    size_hint: 1,1
+    elevation: 3
+    shadow_offset: 0, -6
+    shadow_softness: 10
+    padding: 10
+    orientation: "vertical"
+    canvas:
+        Color:
+            rgba: 0.65,0.81,0.98,1
+        Rectangle:
+            pos:  self.pos
+            size: self.size
+        Color:
+            rgba: 0.29,0.29,0.29,1
+        Line:
+            width: 1.5
+            rectangle: self.x-1.5, self.y+2, self.width, self.height-2
+
+    Label:
+        color: 0,0,0,1
+        text: "Para qual bimestre você deseja lançar?"
+        font_size: 20
+        font_name: "Fontes/Inter-Regular"
+        size_hint: 1,0.2
+
+    GridLayout:
+        size_hint: 1,0.2
+        cols: 2
+        CheckBox:
+            size: self.size
+            color: 0,0,0,1
+            on_active: root.checkbox_clicada(self,self.active,1)
+            group: "Bimestre"
+            size_hint: .2,1
+        Label:
+            color: 0,0,0,1
+            text: "1° Bimestre"
+            font_size: 16
+            font_name: "Fontes/Inter-Regular"
+            size_hint: 0.8,0.2
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+
+    GridLayout:
+        size_hint: 1,0.2
+        cols: 2
+        CheckBox:
+            size: self.size
+            color: 0,0,0,1
+            on_active: root.checkbox_clicada(self,self.active,2)
+            group: "Bimestre"
+            size_hint: .2,1
+        Label:
+            color: 0,0,0,1
+            text: "2° Bimestre"
+            font_size: 16
+            font_name: "Fontes/Inter-Regular"
+            size_hint: 0.8,0.2
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+    GridLayout:
+        size_hint: 1,0.2
+        cols: 2
+        CheckBox:
+            anchor: "left"
+            size: self.size
+            color: 0,0,0,1
+            on_active: root.checkbox_clicada(self,self.active,3)
+            group: "Bimestre"
+            size_hint: .2,1
+        Label:
+            size: self.size
+            color: 0,0,0,1
+            text: "3° Bimestre"
+            font_size: 16
+            font_name: "Fontes/Inter-Regular"
+            size_hint: 0.8,0.2
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+    GridLayout:
+        size_hint: 1,0.2
+        cols: 2
+        CheckBox:
+            size: self.size
+            color: 0,0,0,1
+            on_active: root.checkbox_clicada(self,self.active,4)
+            group: "Bimestre"
+            size_hint: .2,1
+        Label:
+            color: 0,0,0,1
+            text: "4° Bimestre"
+            font_size: 16
+            font_name: "Fontes/Inter-Regular"
+            size_hint: 0.8,0.2
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+
+    BotaoTurmas:
+        text:"Confirmar"
+        size_hint: 1,0.1
+        on_release:
+            if root.prox(): \
+            app.root.current = "Confirma"
+
+<PainelConfirma>:
+    id: "p6"
+    pos_hint : {"left":0.5,"top":0.5}
+
+    elevation: 3
+    shadow_offset: 0, -6
+    shadow_softness: 10
+    orientation: "vertical"
+    canvas.before:
+        Color:
+            rgba: 0.65,0.81,0.98,1
+        Rectangle:
+            pos:  self.pos
+            size: self.size
+        Color:
+            rgba: 0.29,0.29,0.29,1
+        Line:
+            width: 1.5
+            rectangle: self.x-1.5, self.y+2, self.width, self.height-2
+
+
+
+
+
+
+
+
+
+
+
+<Login>
+    name: "Login"
+    canvas:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            pos:  root.pos
+            size: root.size
+    PainelSuperior:
+    BarraAzul:
+
+    GridLayout:
+        pos_hint: {"top":0.74,"left":0}
+        size_hint: 1,0.70
+        cols: 3
+        rows: 1
+        Nada:
+        PainelLogin:
+        Nada:
+
+<Smateria>
+    name: "Smateria"
+    canvas:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            pos:  root.pos
+            size: root.size
+    PainelSuperior:
+    BarraAzul:
+    GridLayout:
+        size_hint: 1,.8
+        pos_hint:
+        cols:3
+        rows:1
+        padding: 60
+        Nada:
+            size_hint: 0.1,1
+        PainelSM:
+        Nada:
+            size_hint: 0.1,1
+
+<Turmas>
+    name: "Turmas"
+    canvas:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            pos:  root.pos
+            size: root.size
+    PainelSuperior:
+    BarraAzul:
+    GridLayout:
+        size_hint: 1,.8
+        pos_hint:
+        cols:3
+        rows:1
+        padding: 60
+        Nada:
+            size_hint: 0.1,1
+        PainelTurmas:
+        Nada:
+            size_hint: 0.1,1
+<Turmas2>
+    name: "Turmas2"
+    canvas:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            pos:  root.pos
+            size: root.size
+    PainelSuperior:
+    BarraAzul:
+    GridLayout:
+        size_hint: 1,.8
+        pos_hint:
+        cols:3
+        rows:1
+        padding: 60
+        Nada:
+            size_hint: 0.1,1
+        PainelTurmas2:
+        Nada:
+            size_hint: 0.1,1
+<Bimestre>
+    name: "Bimestre"
+    canvas:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            pos:  root.pos
+            size: root.size
+    PainelSuperior:
+    BarraAzul:
+    GridLayout:
+        size_hint: 1,.8
+        pos_hint:
+        cols:3
+        rows:1
+        padding: 60
+        Nada:
+            size_hint: 0.3,1
+        PainelBimestre:
+        Nada:
+            size_hint: 0.3,1
+<Confirma>
+    name:"Confirma"
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            pos:  root.pos
+            size: root.size
+    PainelSuperior:
+    BarraAzul:
+
+<Final>:
+    name: "Final"
+
+
+
+
+
+
